@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "../../lab1.2_var9/lab1.2_var9/lab1.2_var9.cpp"
-using namespace Lab2;
 
+using namespace Lab2;
 
 TEST(Lemniscata_Bernoulli, testContructor)
 {
@@ -20,7 +20,7 @@ TEST(Lemniscata_Bernoulli, testContructor)
 TEST(Lemniscata_Bernoulli, TestgetPolarRadiosDependOnPhi)
 {
 	Lemniscata_Bernoulli lb(10);
-	ASSERT_NEAR(10.395213377974882, lb.getPolarRadiosDependOnPhi(1),  Lemniscata_Bernoulli::ABS_ERROR);
+	ASSERT_NEAR(10.395213377974882, lb.getPolarRadiosDependOnPhi(1), Lemniscata_Bernoulli::ABS_ERROR);
 
 }
 
@@ -28,14 +28,14 @@ TEST(Lemniscata_Bernoulli, TestgetPolarRadiosDependOnPhi)
 TEST(Lemniscata_Bernoulli, TestgetRadiusOfCurvatureDependingOnPhi)
 {
 	Lemniscata_Bernoulli lb(10);
-	ASSERT_NEAR(6.4132081028676469, lb.getRadiusOfCurvatureDependingOnPhi(1), Lemniscata_Bernoulli::ABS_ERROR);//10.395213377974882
+	ASSERT_NEAR(6.4132081028676469, lb.getRadiusOfCurvatureDependingOnPhi(1), Lemniscata_Bernoulli::ABS_ERROR);
 }
 
 
 TEST(Lemniscata_Bernoulli, TestgetRadiusOfCurvatureDependingOnPolarRadius)
 {
 	Lemniscata_Bernoulli lb(10);
-	ASSERT_NEAR(22.222222222222221, lb.getRadiusOfCurvatureDependingOnPolarRadius(3), Lemniscata_Bernoulli::ABS_ERROR);//22.222200000000001
+	ASSERT_NEAR(22.222222222222221, lb.getRadiusOfCurvatureDependingOnPolarRadius(3), Lemniscata_Bernoulli::ABS_ERROR);
 }
 
 

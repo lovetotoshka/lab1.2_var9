@@ -1,64 +1,93 @@
 ﻿#include "lab1.2_var9.h"
 
+namespace Lab2 {
 
-Lemniscata_Bernoulli::Lemniscata_Bernoulli()
-	: a(5)
-{
-}
+	double getNum(double& a, double b, double c)
+	{
+		while (true) // цикл продолжается до тех пор, пока пользователь не введет корректное значение
+		{
+			std::cout << "\tВведите значение: ";
+			std::cin >> a;
 
-Lemniscata_Bernoulli::Lemniscata_Bernoulli(double a)
-	: a(a)
-{
-}
+			if (std::cin.fail()) // если предыдущее извлечение оказалось неудачным,
+			{
+				std::cin.clear(); // то возвращаем cin в 'обычный' режим работы
+				std::cin.ignore(32767, '\n'); // и удаляем значения предыдущего ввода из входного буфера
+				std::cout << "\tERROR!!!" << std::endl;
+			}
+			else {// если всё хорошо, но значение выходит за границы
+				if ((a < b) || (a > c)) {
+					std::cin.clear(); // возвращаем cin в 'обычный' режим работы
+					std::cin.ignore(32767, '\n'); // и удаляем значения предыдущего ввода из входного буфера
+					std::cout << "\tERROR!" << std::endl;
+				}
+				else { //всё хорошо
+					std::cin.ignore(32767, '\n'); // и удаляем значения предыдущего ввода из входного буфера
+					return a;
+				}
+			}
+		}
+	}
 
-double Lemniscata_Bernoulli::getA()
-{
-	return this->a;
-}
 
-void Lemniscata_Bernoulli::setA(double a)
-{
-	this->a = a;
-}
-/*std::pair<double, double> Lemniscata_Bernoulli::calcInCartesian(double x)
-{
-	if (abs(this->a - x) < LinearStrophoid::ABS_ERROR)
-		return std::make_pair(0, 0);
-	if (x < -a || x > a)
-		throw std::runtime_error("Функция определна на [-" + std::to_string(this->a) + "; " + std::to_string(this->a) + "]");
-	double val = x * sqrt((this->a + x) / (this->a - x));
-	return std::make_pair(val, -val);
-}
-*/
-/*double Lemniscata_Bernoulli::calcInPolar(double angle)
-{
-	if (abs(cos(angle)) < LinearStrophoid::ABS_ERROR)
-		return 0;
-	return -(a * cos(angle * 2)) / cos(angle);
-}
-*/
+	// Пустой инициализитор лемнискаты 
+	Lemniscata_Bernoulli::Lemniscata_Bernoulli()
+		: a(5)
+	{
+	}
 
-double Lemniscata_Bernoulli::getPolarRadiosDependOnPhi(double angle)
-{
-	return pow((2* a * a * cos(angle)), 0.5);
-}
-double Lemniscata_Bernoulli::getRadiusOfCurvatureDependingOnPhi(double angle) // R =  2c^2/ 3 sqrt (2а^2 cos2φ) радиус кривизны в зависимости от угла полярного радиуса.
-{
-	return 2 * a * a / (3 * pow(2 * a * a * cos(angle), 0.5));
-}
 
-double Lemniscata_Bernoulli::getRadiusOfCurvatureDependingOnPolarRadius(double p)// R = 2c ^ 2 / 3p Вернуть радиуса кривизны в зависимости от длины полярного радиуса.
-{
-	return 2 * a * a / (3 * p);
-}
+	// Инициализатор лемнискаты с заданным параметром
+	Lemniscata_Bernoulli::Lemniscata_Bernoulli(double a)
+		: a(a)
+	{
+	}
 
-double Lemniscata_Bernoulli::getAreaOfThepolarSectorDependingOnPhi(double angle) //S = (с^2)/2   * sin(2 alpha )    0<= alpha <= pi/4 Вернуть площадь полярного сектора лемнискаты в зависимости от угла полярного радиуса.
-{
-	return 0.5 * a * a * sin(2 * angle);
-}
+	// Вернуть параметр лемнискаты
+	double Lemniscata_Bernoulli::getA() const
+	{
+		return this->a;
+	}
 
-double Lemniscata_Bernoulli::getSquare() //Вернуть площадь лемнискаты. 2*(c^2)
-{
-	return 2 * a * a;
-}
 
+	// Установить параметр лемнискаты
+	void Lemniscata_Bernoulli::setA(double a)
+	{
+		this->a = a;
+	}
+
+
+	// Вернуть расстояние до центра в полярной системе координат в зависимости от угла для точки принадлежащей лемнискате
+	double Lemniscata_Bernoulli::getPolarRadiosDependOnPhi(double angle) const
+	{
+		return pow((2 * (this->a) * (this->a) * abs(cos(angle))), 0.5);
+	}
+
+
+	// Радиус кривизны в зависимости от угла полярного радиуса
+	double Lemniscata_Bernoulli::getRadiusOfCurvatureDependingOnPhi(double angle) const 
+	{
+		return 2 * (this->a) * (this->a) / (3 * pow(2 * (this->a) * (this->a) * abs(cos(angle)), 0.5));
+	}
+
+
+	// Радиус кривизны в зависимости от длины полярного радиуса
+	double Lemniscata_Bernoulli::getRadiusOfCurvatureDependingOnPolarRadius(double p) const
+	{
+		return 2 * (this->a) * (this->a) / (3 * p);
+	}
+
+
+	// Вернуть площадь полярного сектора лемнискаты в зависимости от угла полярного радиуса
+	double Lemniscata_Bernoulli::getAreaOfThepolarSectorDependingOnPhi(double angle) const
+	{
+		return 0.5 * (this->a) * (this->a) * sin(2 * angle);
+	}
+
+	// Площадь лемнискаты
+	double Lemniscata_Bernoulli::getSquare() const
+	{
+		return 2 * (this->a) * (this->a);
+	}
+
+}
